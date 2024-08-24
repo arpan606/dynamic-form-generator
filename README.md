@@ -13,7 +13,7 @@ Follow the steps below to set up and run the project locally.
 Clone the project to your local machine using the following command:
 
 ```bash
-git clone <[repository-url](https://github.com/arpan606/dynamic-form-generator.git)>
+git clone https://github.com/arpan606/dynamic-form-generator.git)
 npm install
 npm run start
 ```
