@@ -1,26 +1,14 @@
 import React, { useState } from "react";
-import {
-  useForm,
-  Controller,
-  useFormContext,
-  FormProvider,
-} from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  TextField,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Card,
-  Switch,
-  FormHelperText,
-  Stack,
-  Autocomplete,
-  CardHeader,
-  Typography,
-} from "@mui/material";
+import { Button, Card, Stack, CardHeader, Typography } from "@mui/material";
 import "./preview-form.css";
+import { SwitchControlledField } from "./switch-controlled-field";
+import { AutocompleteControlledField } from "./autocomplete-controlled-field";
+import { CheckboxControlledField } from "./checkbox-controlled-field";
+import { TextfieldControlledField } from "./textfield-controlled-field";
+
 // ----------------------------------------------------------------------
 
 const buildValidationSchema = (config) => {
@@ -67,7 +55,7 @@ export default function DynamicForm({ formConfig }) {
   const { handleSubmit } = methods;
 
   const onSubmit = (data) => {
-    setIsValidForm(true)
+    setIsValidForm(true);
   };
 
   return (
@@ -141,114 +129,5 @@ export default function DynamicForm({ formConfig }) {
         </form>
       </FormProvider>
     </Card>
-  );
-}
-
-// ----------------------------------------------------------------------
-
-function SwitchControlledField({ name, helperText, label }) {
-  const { control } = useFormContext();
-
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Stack>
-          <FormControlLabel
-            label={label}
-            control={<Switch {...field} checked={field.value} />}
-          />
-
-          {(!!error || helperText) && (
-            <FormHelperText error={!!error}>
-              {error ? error?.message : helperText}
-            </FormHelperText>
-          )}
-        </Stack>
-      )}
-    />
-  );
-}
-
-// ----------------------------------------------------------------------
-
-function TextfieldControlledField({ name, label }) {
-  const { control } = useFormContext();
-
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <TextField
-          {...field}
-          fullWidth
-          error={!!error}
-          helperText={error ? error.message : ""}
-          label={label}
-        />
-      )}
-    />
-  );
-}
-
-// ----------------------------------------------------------------------
-
-function AutocompleteControlledField({
-  name,
-  label,
-  placeholder,
-  options = [],
-}) {
-  const { control, setValue } = useFormContext();
-
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <Autocomplete
-          {...field}
-          fullWidth
-          renderInput={(params) => (
-            <TextField
-              label={label}
-              error={!!error}
-              helperText={error ? error?.message : ""}
-              placeholder={placeholder}
-              {...params}
-            />
-          )}
-          options={options}
-          getOptionLabel={(option) => (option ? option : "")}
-          onChange={(event, newValue) => setValue(name, newValue)}
-          isOptionEqualToValue={(option, value) => option === value}
-        />
-      )}
-    />
-  );
-}
-
-// ----------------------------------------------------------------------
-
-export function CheckboxControlledField({ name, label }) {
-  const { control } = useFormContext();
-
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field }) => (
-        <div>
-          <Stack>
-            <FormControlLabel
-              label={label}
-              control={<Checkbox {...field} checked={field.value} />}
-            />
-          </Stack>
-        </div>
-      )}
-    />
   );
 }
