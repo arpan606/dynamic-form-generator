@@ -72,7 +72,7 @@ export default function FormElement({ width }) {
   return (
     <Stack width={width} margin="0 auto">
       <Card>
-        <CardHeader title={"Tools"} subheader={"Drag and drop fields"} />
+        <CardHeader title={"Tools"} subheader={"Select Elements to add fields in your form"} />
         <Divider />
         <CardContent>
           {elements.map((ele, idx) => (
