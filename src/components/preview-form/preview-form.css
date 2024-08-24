@@ -1,0 +1,18 @@
+
+.preview-form-area{
+    border-radius: 5px;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f1f5f940;
+    padding: 10px 20px;
+    border:1px solid #cece;
+}
+
+.preview-form-area::-webkit-scrollbar {
+    display: none;
+  }
+  
+.preview-form-area {
+    -ms-overflow-style: none;
+    scrollbar-width: none;  
+}

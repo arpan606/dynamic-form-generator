@@ -1,0 +1,20 @@
+
+.form-area{
+    border-radius: 5px;
+    height: 80%;
+    overflow-y: scroll;
+    background-color: #f1f5f940;
+    padding: 10px 20px;
+    max-height:550px;
+    border:1px solid #cece;
+    min-height: 550px;
+}
+
+.form-area::-webkit-scrollbar {
+    display: none;
+  }
+  
+.form-area {
+    -ms-overflow-style: none;
+    scrollbar-width: none;  
+}
