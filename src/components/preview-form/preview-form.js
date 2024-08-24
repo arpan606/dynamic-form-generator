@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   useForm,
   Controller,
@@ -18,6 +18,7 @@ import {
   Stack,
   Autocomplete,
   CardHeader,
+  Typography,
 } from "@mui/material";
 import "./preview-form.css";
 // ----------------------------------------------------------------------
@@ -57,13 +58,17 @@ const buildValidationSchema = (config) => {
 export default function DynamicForm({ formConfig }) {
   const validationSchema = buildValidationSchema(formConfig);
 
+  const [isValidForm, setIsValidForm] = useState(false);
+
   const methods = useForm({
     resolver: yupResolver(validationSchema),
   });
 
   const { handleSubmit } = methods;
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    setIsValidForm(true)
+  };
 
   return (
     <Card
@@ -78,49 +83,61 @@ export default function DynamicForm({ formConfig }) {
     >
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} class="preview-form-area">
-          <CardHeader title={"Preview Form"} />
-          <Stack gap={2}>
-            {formConfig.map((field, index) => {
-              const name = String(field.idx || index);
-              switch (field.type) {
-                case "text_input":
-                case "text_area":
-                  return (
-                    <TextfieldControlledField
-                      name={name}
-                      label={field?.label}
-                    />
-                  );
-                case "dropdown":
-                  return (
-                    <AutocompleteControlledField
-                      name={name}
-                      label={field.label}
-                      place="Choose Option"
-                      options={field.options}
-                    />
-                  );
-                case "checkbox":
-                  return (
-                    <CheckboxControlledField name={name} label={field.label} />
-                  );
-                case "switch":
-                  return (
-                    <SwitchControlledField name={name} label={field.label} />
-                  );
-                default:
-                  return null;
-              }
-            })}
-          </Stack>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ mt: 2 }}
-          >
-            Submit
-          </Button>
+          {!isValidForm ? (
+            <>
+              <CardHeader title={"Preview Form"} />
+              <Stack gap={2}>
+                {formConfig.map((field, index) => {
+                  const name = String(field.idx || index);
+                  switch (field.type) {
+                    case "text_input":
+                    case "text_area":
+                      return (
+                        <TextfieldControlledField
+                          name={name}
+                          label={field?.label}
+                        />
+                      );
+                    case "dropdown":
+                      return (
+                        <AutocompleteControlledField
+                          name={name}
+                          label={field.label}
+                          place="Choose Option"
+                          options={field.options}
+                        />
+                      );
+                    case "checkbox":
+                      return (
+                        <CheckboxControlledField
+                          name={name}
+                          label={field.label}
+                        />
+                      );
+                    case "switch":
+                      return (
+                        <SwitchControlledField
+                          name={name}
+                          label={field.label}
+                        />
+                      );
+                    default:
+                      return null;
+                  }
+                })}
+              </Stack>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{ mt: 2 }}
+              >
+                Submit
+              </Button>
+            </>
+          ) : (
+            <Typography>!!! Successfull submission !!!! </Typography>
+          )}
         </form>
       </FormProvider>
     </Card>
