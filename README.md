@@ -1,7 +1,7 @@
 # Dynamic Form Generator
  
  ### Live Link
- https://66c9d541361cdfe183e6ad25--rococo-travesseiro-63dab6.netlify.app/
+https://steady-kleicha-b887b8.netlify.app/
 
 ### Description
 The application allow's users to create custom forms with various types of form fields, such as text inputs, dropdowns, checkboxes, and radio buttons.
